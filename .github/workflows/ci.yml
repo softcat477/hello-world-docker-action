@@ -38,17 +38,26 @@ jobs:
           REDIS_PORT: 6379
           REDIS_DB: 0
     steps:
-      #- uses: actions/checkout@v3
-      - run: cd /
-      - run: ls -la
-      - run: python3 -V
+      - name: Checkout this repo
+        uses: actions/checkout@v3
+      - name: Copy repo to /code/Rodan
+        run: |
+          ls -la
+          cp -r . /code/Rodan
+      - name: Move to / and list what's inside!
+        run: |
+          cd /
+          pwd
+          ls -la
+      - name: Print python3 version, should be 3.7.15
+        run: python3 -V
       - name: Print POSTGRES variables
         run: |
           echo $POSTGRES_HOST
           echo $POSTGRES_PORT
       - name: Print /code/Rodan
         run: ls -la /code/Rodan
-      - name: move current directory to /code/Rodan
+      - name: Move current directory to /code/Rodan
         run: |
           cd /code/Rodan
           ls -la
