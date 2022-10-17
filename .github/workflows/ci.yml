@@ -48,3 +48,7 @@ jobs:
           echo $POSTGRES_PORT
       - name: Print /code/Rodan
         run: ls -la /code/Rodan
+      - name: move current directory to /code/Rodan
+        run: |
+          cd /code/Rodan
+          ls -la
