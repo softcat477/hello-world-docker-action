@@ -55,9 +55,16 @@ jobs:
         run: |
           echo $POSTGRES_HOST
           echo $POSTGRES_PORT
-      - name: Print /code/Rodan
-        run: ls -la /code/Rodan
       - name: Move current directory to /code/Rodan
         run: |
           cd /code/Rodan
           ls -la
+      - name: Start preprocess script
+        run: bash /run/prepare-ci.bash
+      - name: Check postgres status
+        run: service postgresql status
+      - name: Run one test, should fail
+        run: |
+          cd /code/Rodan
+          python3 manage.py test rodan.test.test_permission
+          python3 manage.py test rodan.test.models.test_job
